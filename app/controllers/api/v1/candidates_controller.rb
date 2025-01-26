@@ -13,6 +13,7 @@ module Api
       end
 
       def create
+        debugger
         @candidate = Candidate.new(candidate_params)
 
         if @candidate.save

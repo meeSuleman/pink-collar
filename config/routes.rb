@@ -5,23 +5,27 @@ Rails.application.routes.draw do
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get "up" => "rails/health#show", as: :rails_health_check
 
-  devise_for :admins, controllers: {
-    sessions: "admins/sessions",
-    passwords: "admins/passwords"
-  }
-
   namespace :api do
     namespace :v1 do
+      scope :admins do
+        devise_for :admins,
+          path: "", # This removes the /admins part from devise paths
+          controllers: {
+            sessions: "api/v1/admins/sessions",
+            passwords: "api/v1/admins/passwords"
+          }
+      end
+
       resources :candidates, only: [ :index, :show, :create ]
       resources :invitations, only: [ :create ] do
         get :accept, on: :member
       end
-    end
-  end
 
-  namespace :admin do
-    get "dashboard", to: "dashboard#index"
-    get "admins_list", to: "dashboard#admins_list"
-    get "show_admin/:id", to: "dashboard#show_admin"
+      namespace :admins do
+        get "dashboard", to: "dashboard#index"
+        get "admins_list", to: "dashboard#admins_list"
+        get "show_admin/:id", to: "dashboard#show_admin"
+      end
+    end
   end
 end

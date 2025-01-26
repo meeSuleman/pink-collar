@@ -7,7 +7,7 @@ class AdminMailer < Devise::Mailer
   def reset_password_instructions(record, token, opts = {})
     @token = token
     @admin = record
-    @reset_url = edit_admin_password_url(reset_password_token: @token)
+    @reset_url = edit_api_v1_admin_password_url(reset_password_token: @token)
 
     mail(
       to: record.email,
