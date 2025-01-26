@@ -5,20 +5,20 @@ module Api
 
       def index
         @candidates = Candidate.all
-        render json: @candidates
+        success_response("Fetched candidates successfully", @candidates)
       end
 
       def show
-        render json: @candidate
+        success_response("Fetched candidate info successfully", @candidate)
       end
 
       def create
         @candidate = Candidate.new(candidate_params)
 
         if @candidate.save
-          render json: @candidate, status: :created
+          success_response("Candidate created successfully", @candidate)
         else
-          render json: { errors: @candidate.errors }, status: :unprocessable_entity
+          error_response(@candidate.errors.full_messages.uniq.to_sentence&.humanize)
         end
       end
 

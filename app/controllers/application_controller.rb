@@ -11,6 +11,26 @@ class ApplicationController < ActionController::Base
   # Only allow modern browsers supporting webp images, web push, badges, import maps, CSS nesting, and CSS :has.
   allow_browser versions: :modern
 
+  def success_response(message = nil, data = nil)
+    response = {
+      message: message,
+      status: "success",
+      data: data
+    }.compact
+
+    render json: response, status: :ok
+  end
+
+  def error_response(message = nil, error = nil, status: :bad_request)
+    response = {
+      status: "error",
+      message: message,
+      error: error
+    }.compact
+
+    render json: response, status: status
+  end
+
   private
 
   def json_request?

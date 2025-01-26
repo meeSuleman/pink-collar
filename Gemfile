@@ -58,3 +58,4 @@ end
 
 gem "active_storage_validations"
 gem "devise", "~> 4.9.4"
+gem "recaptcha"

@@ -5,22 +5,22 @@ module Api
 
       def create
         @invitation = Invitation.new(invitation_params)
-        
+
         if @invitation.save
           AdminMailer.invitation_email(@invitation).deliver_later
-          render json: { message: 'Invitation sent successfully' }, status: :created
+          success_response("Invitation sent successfully", @invitation)
         else
-          render json: { errors: @invitation.errors }, status: :unprocessable_entity
+          error_response(@invitation.errors.full_messages.uniq.to_sentence&.humanize)
         end
       end
 
       def accept
         @invitation = Invitation.find_by(token: params[:token])
-        
+
         if @invitation&.pending?
-          render json: { token: @invitation.token }
+          success_response("Invitation accepted successfully", @invitation)
         else
-          render json: { error: 'Invalid or expired invitation' }, status: :not_found
+          error_response("Invalid or expired invitation")
         end
       end
 
@@ -31,4 +31,4 @@ module Api
       end
     end
   end
-end 
+end

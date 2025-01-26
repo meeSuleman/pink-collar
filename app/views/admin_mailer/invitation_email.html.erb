@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        color: #333;
+      }
+      .container {
+        max-width: 600px;
+        margin: 20px auto;
+        padding: 20px;
+      }
+      .button {
+        display: inline-block;
+        padding: 10px 20px;
+        margin: 20px 0;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+      }
+      .footer {
+        margin-top: 30px;
+        padding-top: 20px;
+        border-top: 1px solid #eee;
+        font-size: 12px;
+        color: #666;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Welcome to the Admin Panel</h1>
+      
+      <p>Hello,</p>
+      
+      <p>You have been invited to join the Admin Panel. Click the button below to accept the invitation and set up your account:</p>
+      
+      <%= link_to 'Accept Invitation', @url, class: 'button' %>
+      
+      <p>Or copy and paste this link into your browser:</p>
+      <p><%= @url %></p>
+      
+      <p>Please note that this invitation link will expire in 24 hours for security reasons.</p>
+      
+      <p>If you did not expect to receive this invitation, please ignore this email.</p>
+      
+      <div class="footer">
+        <p>This is an automated message, please do not reply to this email.</p>
+        <p>If you need assistance, please contact the system administrator.</p>
+      </div>
+    </div>
+  </body>
+</html> 
