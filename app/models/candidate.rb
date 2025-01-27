@@ -8,7 +8,10 @@ class Candidate < ApplicationRecord
     '1-3 Years': 1,
     '3-5 Years': 2,
     '5-8 Years': 3,
-    '8-10 Years': 4
+    '8-10 Years': 4,
+    '10-15 Years': 5,
+    '15-20 Years': 6,
+    '20+ Years': 7
   }
 
   validates :first_name, :last_name, :email, :contact_number, :dob, :education, :experience, :expected_salary, :career_phase, :institute, presence: true
@@ -20,7 +23,7 @@ class Candidate < ApplicationRecord
   # Updated attachment validations
   validates :resume, attached: true, content_type: [ :pdf ]
   validates :photo, attached: true, content_type: [ "image/png", "image/jpeg" ]
-  validates :intro_video, attached: true, content_type: [ "video/mp4" ]
+  validates :intro_video, content_type: [ "video/mp4" ], if: :intro_video_attached?
 
   before_validation :normalize_email, if: :email_changed?
 
@@ -28,5 +31,9 @@ class Candidate < ApplicationRecord
 
   def normalize_email
     self.email = email.to_s.downcase.strip
+  end
+
+  def intro_video_attached?
+    intro_video.attached?
   end
 end
