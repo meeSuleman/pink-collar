@@ -5,10 +5,10 @@ class Candidate < ApplicationRecord
 
   enum experience: {
     'Fresh': 0,
-    '1 - 3 yrs': 1,
-    '3 - 5 yrs': 2,
-    '5 - 8 yrs': 3,
-    '8 - 10 yrs': 4
+    '1-3 Years': 1,
+    '3-5 Years': 2,
+    '5-8 Years': 3,
+    '8-10 Years': 4
   }
 
   validates :first_name, :last_name, :email, :contact_number, :dob, :education, :experience, :expected_salary, :career_phase, :institute, presence: true

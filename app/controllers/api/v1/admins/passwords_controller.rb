@@ -2,6 +2,7 @@ module Api
   module V1
     module Admins
       class PasswordsController < Devise::PasswordsController
+        skip_before_action :require_no_authentication
         # layout "admin"
 
         def create

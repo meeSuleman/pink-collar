@@ -2,10 +2,11 @@ module Api
   module V1
     module Admins
       class DashboardController < ApplicationController
-        before_action :authenticate_admin!
+        before_action :authenticate_api_v1_admin!
 
         def index
           # Add dashboard logic here
+          success_response("Dashboard loaded successfully")
         end
 
         def admins_list

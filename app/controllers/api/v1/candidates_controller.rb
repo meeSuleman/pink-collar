@@ -13,7 +13,6 @@ module Api
       end
 
       def create
-        debugger
         @candidate = Candidate.new(candidate_params)
 
         if @candidate.save
@@ -34,7 +33,7 @@ module Api
           :first_name, :last_name, :email, :contact_number,
           :dob, :education, :experience, :expected_salary,
           :career_phase, :additional_notes, :resume, :photo,
-          :intro_video, industries: []
+          :institute, :intro_video, :industries
         )
       end
     end
