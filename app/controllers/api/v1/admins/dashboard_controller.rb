@@ -14,6 +14,7 @@ module Api
               profile_completion: calculate_profile_completion_rate
             },
             industry_distribution: industry_distribution,
+            top_cities: top_cities,
             resume_to_video_ratio: calculate_resume_to_video_ratio
           }
 
@@ -93,10 +94,23 @@ module Api
         end
 
         def industry_distribution
-          Candidate
-            .group(:industries)
-            .count
-            .transform_values { |count| (count.to_f / total_applicants * 100).round(2) }
+          Candidate.all.each_with_object({}) do |candidate, distribution|
+            industry = candidate.industries&.to_s
+            function = candidate.function&.to_s
+
+            next if industry.blank? || function.blank?
+
+            distribution[industry] ||= {}
+            distribution[industry][function] ||= 0
+            distribution[industry][function] += 1
+
+            # Add percentage calculations
+            total_in_industry = Candidate.where(industries: candidate.industries).count
+            distribution[industry][function] = {
+              count: distribution[industry][function],
+              percentage: (distribution[industry][function].to_f / total_in_industry * 100).round(2)
+            }
+          end
         end
 
         def calculate_resume_to_video_ratio
@@ -114,6 +128,15 @@ module Api
 
           return 0 if video_count.zero?
           (resume_count.to_f / video_count).round(2)
+        end
+
+        def top_cities
+          Candidate
+            .group(:city)
+            .count
+            .transform_values { |count| (count.to_f / total_applicants * 100).round(2) }
+            .sort_by { |_, percentage| -percentage }
+            .to_h
         end
       end
     end

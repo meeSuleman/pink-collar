@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_01_26_175003) do
+ActiveRecord::Schema[7.2].define(version: 2025_01_27_103237) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -73,15 +73,22 @@ ActiveRecord::Schema[7.2].define(version: 2025_01_26_175003) do
     t.string "email", null: false
     t.string "contact_number", null: false
     t.datetime "dob", null: false
-    t.string "education", null: false
+    t.integer "education", null: false
     t.integer "experience", null: false
     t.string "expected_salary", null: false
     t.string "career_phase", null: false
     t.string "additional_notes"
-    t.text "industries", default: [], array: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "institute"
+    t.boolean "currently_employed", default: false
+    t.string "current_salary"
+    t.string "current_employer"
+    t.integer "function"
+    t.string "address", default: "", null: false
+    t.string "city"
+    t.string "state"
+    t.text "industries", default: [], array: true
   end
 
   create_table "invitations", force: :cascade do |t|

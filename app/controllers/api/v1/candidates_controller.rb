@@ -33,7 +33,9 @@ module Api
           :first_name, :last_name, :email, :contact_number,
           :dob, :education, :experience, :expected_salary,
           :career_phase, :additional_notes, :resume, :photo,
-          :institute, :intro_video, :industries
+          :institute, :intro_video, :currently_employed,
+          :current_salary, :current_employer, :function,
+          :address, :city, :state, industries: []
         )
       end
     end
